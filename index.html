@@ -36,7 +36,7 @@
     /* HERO */
     .hero{
       min-height:100vh;display:flex;align-items:center;justify-content:center;
-      text-align:center;padding:11rem 2rem 5rem;
+      text-align:center;padding:7rem 2rem 4rem;
       background:var(--white);position:relative;overflow:hidden;
     }
     .hero::before{
@@ -158,18 +158,25 @@
     .r{opacity:0;transform:translateY(18px);transition:opacity 0.65s ease,transform 0.65s ease}
     .r.v{opacity:1;transform:translateY(0)}
 
+    /* HAMBURGER */
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;position:absolute;right:1.25rem;top:1.1rem}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:all 0.3s}
+    .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
     /* MOBILE */
-    @media(max-width:768px){
-      nav{padding:1rem 1.25rem}
-      nav ul{gap:1rem}
-      .nav-cta{display:none}
+    @media(max-width:640px){
+      nav{padding:0.85rem 1.25rem;position:relative;flex-direction:column;gap:0;align-items:center}
+      .nav-logo{padding:0.2rem 0}
+      .hamburger{display:flex}
+      nav ul{display:none;flex-direction:column;gap:0;width:100%;margin-top:0.75rem;border-top:1px solid var(--rule);padding:0.5rem 0;text-align:center}
+      nav ul.open{display:flex}
+      nav ul li a{padding:0.65rem 0;display:block;font-size:0.8rem}
+      .nav-cta{margin-top:0.25rem;text-align:center;padding:0.6rem 1rem!important}
       .stats-grid{grid-template-columns:repeat(2,1fr)}
       .gallery-grid{grid-template-columns:repeat(2,1fr)}
       footer{flex-direction:column;gap:0.75rem;text-align:center}
-    }
-    @media(max-width:480px){
-      nav ul{display:none}
-      .stats-grid{grid-template-columns:repeat(2,1fr)}
     }
   </style>
 </head>
@@ -178,7 +185,10 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">Pavia <span>Davetiye</span></a>
-  <ul>
+  <button class="hamburger" id="hamburger" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-menu">
     <li><a href="#hizmetler">Hizmetler</a></li>
     <li><a href="#ozellikler">Özellikler</a></li>
     <li><a href="#nasil">Nasıl Çalışır</a></li>
@@ -438,6 +448,21 @@
 </footer>
 
 <script>
+// Hamburger
+const hbtn = document.getElementById('hamburger');
+const nmenu = document.getElementById('nav-menu');
+hbtn.addEventListener('click', () => {
+  hbtn.classList.toggle('open');
+  nmenu.classList.toggle('open');
+});
+// Menü linke tıklayınca kapat
+nmenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hbtn.classList.remove('open');
+    nmenu.classList.remove('open');
+  });
+});
+
 const obs = new IntersectionObserver(entries => {
   entries.forEach((e, i) => {
     if (e.isIntersecting) setTimeout(() => e.target.classList.add('v'), i * 80);
