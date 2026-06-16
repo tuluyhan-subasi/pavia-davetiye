@@ -1,434 +1,175 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pavia Davetiye — Dijital Düğün Davetiyeleri</title>
-  <meta name="description" content="Düğün, nişan ve özel günleriniz için el yapımı dijital davetiyeler. WhatsApp ile sipariş verin, anında teslim alın." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <meta name="description" content="Düğün, nişan ve özel günleriniz için animasyonlu dijital davetiyeler. WhatsApp ile sipariş verin, 24 saat içinde teslim alın."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --white: #ffffff;
-      --off: #f9f7f5;
-      --ink: #1a1a1a;
-      --muted: #888;
-      --rule: #e8e4e0;
-      --accent: #c9a96e;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --white:#ffffff;--off:#f9f7f5;--ink:#1a1a1a;
+      --muted:#888;--rule:#e8e4e0;--accent:#c9a96e;
+      --accent-light:#f0e6d0;--dark:#111;
     }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      background: var(--white);
-      color: var(--ink);
-      font-size: 15px;
-      line-height: 1.7;
-    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;font-weight:300;background:var(--white);color:var(--ink);font-size:15px;line-height:1.7}
 
     /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 2.5rem;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--rule);
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;
+      padding:0.75rem 2rem;
+      background:rgba(255,255,255,0.94);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--rule);
     }
-
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-    }
-
-    .nav-logo span { color: var(--accent); }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2.5rem;
-    }
-
-    nav ul a {
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    nav ul a:hover { color: var(--ink); }
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+    .nav-logo span{color:var(--accent)}
+    nav ul{list-style:none;display:flex;gap:2rem;align-items:center}
+    nav ul li a{display:inline-block;text-decoration:none;color:var(--muted);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;background:none;border:none;outline:none}
+    nav ul li a:hover{color:var(--ink);background:none}
+    .nav-cta{background:var(--ink);color:var(--white)!important;padding:0.55rem 1.25rem!important;transition:background 0.2s!important}
+    .nav-cta:hover{background:var(--accent)!important;color:var(--white)!important}
 
     /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 8rem 2rem 4rem;
-      background: var(--white);
-      position: relative;
+    .hero{
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+      text-align:center;padding:11rem 2rem 5rem;
+      background:var(--white);position:relative;overflow:hidden;
     }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 60% 40%, rgba(201,169,110,0.06) 0%, transparent 70%);
-      pointer-events: none;
+    .hero::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 65% 35%, rgba(201,169,110,0.07) 0%, transparent 65%);
+      pointer-events:none;
     }
+    /* floating petals */
+    .petal{position:absolute;opacity:0.12;animation:float 8s ease-in-out infinite}
+    .petal:nth-child(1){top:15%;left:8%;animation-delay:0s}
+    .petal:nth-child(2){top:35%;right:10%;animation-delay:2s}
+    .petal:nth-child(3){top:65%;left:12%;animation-delay:4s}
+    .petal:nth-child(4){top:80%;right:15%;animation-delay:1s}
+    @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(8deg)}}
 
-    .hero-eyebrow {
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-    }
+    .hero-tag{font-size:0.68rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+    .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7.5vw,6rem);font-weight:300;line-height:1.05;letter-spacing:-0.01em;margin-bottom:1.5rem}
+    .hero h1 em{font-style:italic;color:var(--accent)}
+    .hero-sub{max-width:440px;margin:0 auto 2.5rem;color:var(--muted);font-size:0.92rem;line-height:1.85}
+    .hero-btns{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+    .btn-dark{display:inline-flex;align-items:center;gap:0.6rem;background:var(--ink);color:var(--white);text-decoration:none;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 1.75rem;transition:background 0.2s,transform 0.2s}
+    .btn-dark:hover{background:var(--accent);transform:translateY(-1px)}
+    .btn-outline{display:inline-flex;align-items:center;gap:0.6rem;border:1px solid var(--rule);color:var(--ink);text-decoration:none;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 1.75rem;transition:border-color 0.2s,transform 0.2s}
+    .btn-outline:hover{border-color:var(--ink);transform:translateY(-1px)}
+    .hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase}
+    .sline{width:1px;height:38px;background:var(--rule);animation:sd 2s infinite}
+    @keyframes sd{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 300;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      max-width: 420px;
-      margin: 0 auto 2.5rem;
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.8;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: var(--ink);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 1rem 2rem;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      border: 1px solid var(--rule);
-      color: var(--ink);
-      text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 1rem 2rem;
-      margin-left: 1rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .btn-secondary:hover { border-color: var(--ink); transform: translateY(-1px); }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--muted);
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: var(--rule);
-      animation: scrollDown 2s infinite;
-    }
-
-    @keyframes scrollDown {
-      0% { transform: scaleY(0); transform-origin: top; }
-      50% { transform: scaleY(1); transform-origin: top; }
-      51% { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; }
-    }
-
-    /* DIVIDER */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin: 0 auto;
-      max-width: 200px;
-    }
-
-    .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--rule);
-    }
-
-    .divider-dot {
-      width: 4px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
+    /* STATS */
+    .stats{background:var(--ink);padding:3.5rem 2rem}
+    .stats-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.08)}
+    .stat-item{background:var(--ink);padding:2rem 1rem;text-align:center}
+    .stat-num{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;color:var(--white);line-height:1;margin-bottom:0.5rem}
+    .stat-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
 
     /* SECTIONS */
-    section { padding: 6rem 2rem; }
+    section.sec{padding:6rem 2rem;text-align:center}
+    .container{max-width:1000px;margin:0 auto}
+    .sec-tag{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;display:block}
+    .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:300;line-height:1.15;margin-bottom:1.5rem}
+    .sec-sub{max-width:480px;margin:0 auto 3rem;color:var(--muted);font-size:0.88rem;line-height:1.85}
+    .divider{display:flex;align-items:center;gap:1.5rem;margin:0 auto 3.5rem;max-width:160px}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--rule)}
+    .divider-gem{width:5px;height:5px;background:var(--accent);transform:rotate(45deg);flex-shrink:0}
 
-    .container { max-width: 1000px; margin: 0 auto; }
+    /* SERVICES */
+    .services-bg{background:var(--off)}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;margin-top:3rem}
+    .service-card{background:var(--white);padding:2.75rem 2.5rem;text-align:center;position:relative;transition:transform 0.2s}
+    .service-card:hover{transform:translateY(-3px)}
+    .service-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--rule);line-height:1;margin-bottom:1.25rem}
+    .service-card h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;margin-bottom:0.75rem}
+    .service-card p{color:var(--muted);font-size:0.85rem;line-height:1.8;margin-bottom:1.5rem}
+    .service-price strong{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--accent)}
+    .service-price{font-size:0.8rem;color:var(--muted)}
+    .service-badge{position:absolute;top:1.5rem;right:1.5rem;background:var(--accent);color:white;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem}
 
-    .section-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-      display: block;
-    }
+    /* FEATURES */
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:3rem;text-align:center}
+    .feature-item{padding:1.75rem;border:1px solid var(--rule);transition:border-color 0.2s;text-align:center}
+    .feature-item:hover{border-color:var(--accent)}
+    .feature-icon{width:40px;height:40px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+    .feature-icon svg{width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.5}
+    .feature-item h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;margin-bottom:0.4rem}
+    .feature-item p{font-size:0.8rem;color:var(--muted);line-height:1.7}
 
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 300;
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-    }
+    /* HOW */
+    .how-bg{background:var(--off)}
+    .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-top:3rem}
+    .how-step{text-align:center}
+    .how-num{width:52px;height:52px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--accent)}
+    .how-step h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;margin-bottom:0.5rem}
+    .how-step p{font-size:0.82rem;color:var(--muted);line-height:1.75}
+    .how-connector{display:none}
 
-    /* HIZMETLER */
-    .services { background: var(--off); }
+    /* GALLERY */
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3rem}
+    .gallery-item{aspect-ratio:3/4;background:var(--off);overflow:hidden;position:relative;cursor:pointer}
+    .gallery-item:hover .gallery-overlay{opacity:1}
+    .gallery-overlay{position:absolute;inset:0;background:rgba(26,26,26,0.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s}
+    .gallery-overlay span{color:white;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.5);padding:0.6rem 1.2rem}
+    .gallery-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;color:var(--rule)}
+    .gallery-ph svg{width:32px;height:32px}
+    .gallery-ph span{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+    .gallery-tag{display:inline-block;margin-top:1rem;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--accent-light);padding-bottom:2px}
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2px;
-      margin-top: 3rem;
-    }
+    /* TESTIMONIALS */
+    .testimonials-bg{background:var(--off)}
+    .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;margin-top:3rem}
+    .testimonial{background:var(--white);padding:2.25rem;text-align:center}
+    .testimonial-stars{color:var(--accent);font-size:0.8rem;margin-bottom:1rem;letter-spacing:0.1em}
+    .testimonial-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--ink);line-height:1.7;margin-bottom:1.25rem}
+    .testimonial-author{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
 
-    .service-card {
-      background: var(--white);
-      padding: 2.5rem;
-      position: relative;
-    }
+    /* ORDER */
+    .order-bg{background:var(--dark);color:white}
+    .order-bg .sec-tag{color:rgba(255,255,255,0.35)}
+    .order-bg .sec-title{color:white}
+    .order-bg .sec-sub{color:rgba(255,255,255,0.5)}
+    .order-bg .divider::before,.order-bg .divider::after{background:rgba(255,255,255,0.12)}
+    .btn-wa{display:inline-flex;align-items:center;gap:0.75rem;background:#25D366;color:white;text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;padding:1.1rem 2.2rem;transition:opacity 0.2s,transform 0.2s}
+    .btn-wa:hover{opacity:0.9;transform:translateY(-2px)}
+    .btn-ig{display:inline-flex;align-items:center;gap:0.75rem;border:1px solid rgba(255,255,255,0.2);color:white;text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;padding:1.1rem 2.2rem;transition:border-color 0.2s,transform 0.2s}
+    .btn-ig:hover{border-color:rgba(255,255,255,0.5);transform:translateY(-2px)}
+    .order-btns{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2.5rem}
+    .order-note{margin-top:1.5rem;font-size:0.72rem;color:rgba(255,255,255,0.25);letter-spacing:0.05em}
 
-    .service-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 300;
-      color: var(--rule);
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-
-    .service-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 400;
-      margin-bottom: 0.75rem;
-    }
-
-    .service-card p {
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.75;
-    }
-
-    .service-price {
-      margin-top: 1.5rem;
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
-    }
-
-    .service-price strong {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 300;
-      color: var(--accent);
-    }
-
-    /* NASIL ÇALIŞIR */
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 3rem;
-      margin-top: 3rem;
-    }
-
-    .how-step { text-align: center; }
-
-    .how-icon {
-      width: 56px;
-      height: 56px;
-      border: 1px solid var(--rule);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.25rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      color: var(--accent);
-    }
-
-    .how-step h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 400;
-      margin-bottom: 0.5rem;
-    }
-
-    .how-step p {
-      color: var(--muted);
-      font-size: 0.85rem;
-      line-height: 1.75;
-    }
-
-    /* GALERI */
-    .gallery { background: var(--off); }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      margin-top: 3rem;
-    }
-
-    .gallery-item {
-      aspect-ratio: 3/4;
-      background: var(--rule);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .gallery-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      gap: 0.5rem;
-    }
-
-    .gallery-placeholder svg { opacity: 0.3; }
-
-    /* SIPARIS */
-    .order { background: var(--ink); color: var(--white); text-align: center; }
-
-    .order .section-title { color: var(--white); }
-
-    .order p {
-      color: rgba(255,255,255,0.55);
-      max-width: 380px;
-      margin: 0 auto 2.5rem;
-      font-size: 0.92rem;
-    }
-
-    .btn-wa {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: #25D366;
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 1.1rem 2.2rem;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-
-    .btn-wa:hover { opacity: 0.9; transform: translateY(-2px); }
-
-    .btn-ig {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.2);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 1.1rem 2.2rem;
-      margin-left: 1rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .btn-ig:hover { border-color: rgba(255,255,255,0.6); transform: translateY(-2px); }
+    /* FAQ mini */
+    .faq{max-width:640px;margin:3rem auto 0;text-align:left}
+    .faq-item{border-bottom:1px solid rgba(255,255,255,0.08);padding:1.25rem 0}
+    .faq-q{font-size:0.88rem;color:rgba(255,255,255,0.7);margin-bottom:0.5rem}
+    .faq-a{font-size:0.82rem;color:rgba(255,255,255,0.35);line-height:1.7}
 
     /* FOOTER */
-    footer {
-      border-top: 1px solid var(--rule);
-      padding: 2rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
+    footer{border-top:1px solid var(--rule);padding:2rem 2.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;font-size:0.73rem;color:var(--muted)}
+    .footer-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);text-decoration:none}
 
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-    }
+    /* REVEAL */
+    .r{opacity:0;transform:translateY(18px);transition:opacity 0.65s ease,transform 0.65s ease}
+    .r.v{opacity:1;transform:translateY(0)}
 
     /* MOBILE */
-    @media (max-width: 640px) {
-      nav { padding: 1rem 1.25rem; }
-      nav ul { gap: 1.5rem; }
-      .hero { padding: 7rem 1.25rem 4rem; }
-      .btn-secondary { margin-left: 0; margin-top: 0.75rem; }
-      .hero .cta-group { display: flex; flex-direction: column; align-items: center; }
-      section { padding: 4rem 1.25rem; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      footer { flex-direction: column; gap: 0.75rem; text-align: center; }
-      .btn-ig { margin-left: 0; margin-top: 0.75rem; }
-      .order .cta-group { display: flex; flex-direction: column; align-items: center; }
+    @media(max-width:768px){
+      nav{padding:1rem 1.25rem}
+      nav ul{gap:1rem}
+      .nav-cta{display:none}
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
+      footer{flex-direction:column;gap:0.75rem;text-align:center}
+    }
+    @media(max-width:480px){
+      nav ul{display:none}
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
     }
   </style>
 </head>
@@ -439,138 +180,252 @@
   <a class="nav-logo" href="#">Pavia <span>Davetiye</span></a>
   <ul>
     <li><a href="#hizmetler">Hizmetler</a></li>
+    <li><a href="#ozellikler">Özellikler</a></li>
     <li><a href="#nasil">Nasıl Çalışır</a></li>
     <li><a href="#galeri">Örnekler</a></li>
-    <li><a href="#siparis">Sipariş</a></li>
+    <li><a class="nav-cta" href="https://wa.me/905522772400?text=Merhaba%2C%20dijital%20davetiye%20sipari%C5%9Fi%20vermek%20istiyorum." target="_blank">Sipariş Ver</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+  <!-- floating petals -->
+  <svg class="petal" width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="8" ry="18" fill="#c9a96e" transform="rotate(20 20 20)"/></svg>
+  <svg class="petal" width="32" height="32" viewBox="0 0 32 32"><ellipse cx="16" cy="16" rx="6" ry="14" fill="#c9a96e" transform="rotate(-15 16 16)"/></svg>
+  <svg class="petal" width="28" height="28" viewBox="0 0 28 28"><ellipse cx="14" cy="14" rx="5" ry="12" fill="#c9a96e" transform="rotate(35 14 14)"/></svg>
+  <svg class="petal" width="36" height="36" viewBox="0 0 36 36"><ellipse cx="18" cy="18" rx="7" ry="16" fill="#c9a96e" transform="rotate(-30 18 18)"/></svg>
+
   <div>
-    <p class="hero-eyebrow">Dijital Davetiye Stüdyosu</p>
+    <p class="hero-tag">Dijital Davetiye Stüdyosu</p>
     <h1>En özel gününüz<br><em>için tasarlandı</em></h1>
-    <p class="hero-sub">Düğün, nişan ve özel anlarınız için el yapımı dijital davetiyeler. WhatsApp'tan sipariş verin, anında teslim alın.</p>
-    <div class="cta-group">
-      <a class="btn-primary" href="https://wa.me/905522772400?text=Merhaba%2C%20dijital%20davetiye%20sipari%C5%9Fi%20vermek%20istiyorum." target="_blank">
+    <p class="hero-sub">Düğün, nişan ve özel anlarınız için animasyonlu dijital davetiyeler. WhatsApp'tan sipariş verin, 24 saat içinde teslim alın.</p>
+    <div class="hero-btns">
+      <a class="btn-dark" href="https://wa.me/905522772400?text=Merhaba%2C%20dijital%20davetiye%20sipari%C5%9Fi%20vermek%20istiyorum." target="_blank">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.856L.057 23.215a.75.75 0 0 0 .92.92l5.43-1.476A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.686-.516-5.21-1.415l-.375-.225-3.865 1.05 1.063-3.784-.245-.39A9.952 9.952 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         Sipariş Ver
       </a>
-      <a class="btn-secondary" href="#galeri">Örnekleri Gör</a>
+      <a class="btn-outline" href="#galeri">Örnekleri Gör</a>
     </div>
   </div>
   <div class="hero-scroll">
-    <div class="scroll-line"></div>
+    <div class="sline"></div>
     <span>Keşfet</span>
   </div>
 </section>
 
-<!-- HIZMETLER -->
-<section class="services" id="hizmetler">
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat-item r">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Mutlu Çift</div>
+    </div>
+    <div class="stat-item r">
+      <div class="stat-num">24s</div>
+      <div class="stat-label">Teslim Süresi</div>
+    </div>
+    <div class="stat-item r">
+      <div class="stat-num">%100</div>
+      <div class="stat-label">Memnuniyet</div>
+    </div>
+    <div class="stat-item r">
+      <div class="stat-num">5★</div>
+      <div class="stat-label">Müşteri Puanı</div>
+    </div>
+  </div>
+</div>
+
+<!-- HİZMETLER -->
+<section class="sec services-bg" id="hizmetler">
   <div class="container">
-    <span class="section-label">Hizmetler</span>
-    <h2 class="section-title">İki farklı<br>seçenek</h2>
-    <div class="divider"><div class="divider-dot"></div></div>
+    <span class="sec-tag r">Hizmetler</span>
+    <h2 class="sec-title r">Size özel<br>davetiye paketi</h2>
+    <p class="sec-sub r">İki farklı format, her bütçeye uygun seçenek.</p>
+    <div class="divider r"><div class="divider-gem"></div></div>
     <div class="services-grid">
-      <div class="service-card">
+      <div class="service-card r">
+        <div class="service-badge">En Popüler</div>
         <div class="service-num">01</div>
-        <h3>Hazır Şablon</h3>
-        <p>Canva üzerinden düzenleyebileceğiniz hazır tasarımlar. İsim, tarih ve mekan bilgilerini kendiniz girersiniz.</p>
-        <div class="service-price">Başlangıç <strong>99₺</strong>'den</div>
+        <h3>Animasyonlu Davetiye</h3>
+        <p>Geri sayım, harita, müzik ve fotoğraf galerisi içeren tam animasyonlu dijital davetiye. Özel link ile paylaşırsınız.</p>
+        <div class="service-price">Başlangıç <strong>499₺</strong>'den</div>
       </div>
-      <div class="service-card">
+      <div class="service-card r">
         <div class="service-num">02</div>
-        <h3>Özel Tasarım</h3>
-        <p>Size özel hazırlanmış, tarzınıza uygun davetiye. PDF, video veya WhatsApp formatında teslim edilir.</p>
-        <div class="service-price">Başlangıç <strong>249₺</strong>'den</div>
-      </div>
-      <div class="service-card">
-        <div class="service-num">03</div>
         <h3>Video Davetiye</h3>
-        <p>Animasyonlu, müzikli video davetiye. WhatsApp ve sosyal medyada paylaşmak için ideal format.</p>
-        <div class="service-price">Başlangıç <strong>349₺</strong>'den</div>
+        <p>Animasyonlu, müzikli video davetiye. WhatsApp, Instagram ve TikTok'ta doğrudan paylaşmak için ideal format.</p>
+        <div class="service-price">Başlangıç <strong>649₺</strong>'den</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÖZELLİKLER -->
+<section class="sec" id="ozellikler">
+  <div class="container">
+    <span class="sec-tag r">Özellikler</span>
+    <h2 class="sec-title r">Davetiyenizi özel<br>yapan her şey</h2>
+    <div class="divider r"><div class="divider-gem"></div></div>
+    <div class="features-grid">
+      <div class="feature-item r">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h4>Canlı Geri Sayım</h4>
+        <p>Düğün gününüze kalan süreyi canlı olarak gösteren etkileyici sayaç.</p>
+      </div>
+      <div class="feature-item r">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <h4>İnteraktif Harita</h4>
+        <p>Google Maps entegrasyonu ile misafirleriniz tek tıkla yol tarifi alır.</p>
+      </div>
+      <div class="feature-item r">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <h4>Arka Plan Müziği</h4>
+        <p>Sevdiğiniz şarkıyla davetiyenize romantik bir atmosfer katın.</p>
+      </div>
+      <div class="feature-item r">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+        <h4>Fotoğraf Galerisi</h4>
+        <p>Nişan fotoğraflarınızı davetiyenize ekleyin, anılarınızı paylaşın.</p>
+      </div>
+      <div class="feature-item r">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <h4>Takvime Ekle</h4>
+        <p>Misafirleriniz Google ve Apple takvimine tek tıkla ekleyebilir.</p>
+      </div>
+      <div class="feature-item r">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l.96-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <h4>WhatsApp Bildirimi</h4>
+        <p>Misafirleriniz RSVP yanıtlarını doğrudan WhatsApp'tan iletebilir.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- NASIL ÇALIŞIR -->
-<section id="nasil">
-  <div class="container" style="text-align:center;">
-    <span class="section-label">Süreç</span>
-    <h2 class="section-title">Nasıl çalışır?</h2>
-    <div class="divider"><div class="divider-dot"></div></div>
+<section class="sec how-bg" id="nasil">
+  <div class="container">
+    <span class="sec-tag r">Süreç</span>
+    <h2 class="sec-title r">4 adımda<br>davetiyeniz hazır</h2>
+    <div class="divider r"><div class="divider-gem"></div></div>
     <div class="how-grid">
-      <div class="how-step">
-        <div class="how-icon">1</div>
-        <h4>WhatsApp'tan yazın</h4>
-        <p>Tarz ve format tercihinizi bizimle paylaşın.</p>
+      <div class="how-step r">
+        <div class="how-num">1</div>
+        <h4>WhatsApp'tan Yazın</h4>
+        <p>Tarz tercihinizi, isimlerinizi ve düğün tarihini bizimle paylaşın.</p>
       </div>
-      <div class="how-step">
-        <div class="how-icon">2</div>
+      <div class="how-step r">
+        <div class="how-num">2</div>
         <h4>Tasarlıyoruz</h4>
-        <p>Bilgilerinizi alıp 24 saat içinde tasarımı hazırlıyoruz.</p>
+        <p>24 saat içinde size özel davetiyenizi hazırlıyoruz.</p>
       </div>
-      <div class="how-step">
-        <div class="how-icon">3</div>
+      <div class="how-step r">
+        <div class="how-num">3</div>
         <h4>Onaylayın</h4>
-        <p>İstediğiniz değişiklikleri yapıyoruz, memnun kalana kadar.</p>
+        <p>Memnun kalana kadar revize ediyoruz, sınırsız düzeltme.</p>
       </div>
-      <div class="how-step">
-        <div class="how-icon">4</div>
-        <h4>Anında teslim</h4>
-        <p>PDF, video veya Canva linki olarak hemen teslim alırsınız.</p>
+      <div class="how-step r">
+        <div class="how-num">4</div>
+        <h4>Anında Teslim</h4>
+        <p>Özel linkiniz hazır! Misafirlerinizle WhatsApp'tan paylaşın.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- GALERİ -->
-<section class="gallery" id="galeri">
+<section class="sec" id="galeri">
   <div class="container">
-    <span class="section-label">Örnekler</span>
-    <h2 class="section-title">Tasarımlarımız</h2>
-    <div class="divider"><div class="divider-dot"></div></div>
+    <span class="sec-tag r">Örnekler</span>
+    <h2 class="sec-title r">Tasarımlarımız</h2>
+    <p class="sec-sub r">Her çiftin hikayesi farklıdır. Davetiyeniz de öyle olacak.</p>
+    <div class="divider r"><div class="divider-gem"></div></div>
     <div class="gallery-grid">
-      <!-- Canva tasarımlarınızı buraya ekleyin -->
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          <span>Yakında</span>
+      <div class="gallery-item r">
+        <div class="gallery-ph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          <span>Modern & Minimal</span>
         </div>
+        <div class="gallery-overlay"><span>Demo Gör</span></div>
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          <span>Yakında</span>
+      <div class="gallery-item r">
+        <div class="gallery-ph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          <span>Bohem & Doğal</span>
         </div>
+        <div class="gallery-overlay"><span>Demo Gör</span></div>
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          <span>Yakında</span>
+      <div class="gallery-item r">
+        <div class="gallery-ph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          <span>Zarif & Klasik</span>
         </div>
+        <div class="gallery-overlay"><span>Demo Gör</span></div>
       </div>
     </div>
-    <p style="text-align:center; margin-top:2rem; color:var(--muted); font-size:0.85rem;">Daha fazla örnek için <a href="https://instagram.com/paviadavetiye" target="_blank" style="color:var(--ink);">@paviadavetiye</a>'yi takip edin.</p>
+    <p style="text-align:center;margin-top:2rem">
+      <a class="gallery-tag" href="https://instagram.com/paviadavetiye" target="_blank">@paviadavetiye'de daha fazlası →</a>
+    </p>
+  </div>
+</section>
+
+<!-- YORUMLAR -->
+<section class="sec testimonials-bg">
+  <div class="container">
+    <span class="sec-tag r">Müşteri Yorumları</span>
+    <h2 class="sec-title r">Mutlu çiftler<br>anlatıyor</h2>
+    <div class="divider r"><div class="divider-gem"></div></div>
+    <div class="testimonials-grid">
+      <div class="testimonial r">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Davetiyemizi görünce ağladım! Tam hayal ettiğimiz gibi oldu, hatta daha güzel."</p>
+        <span class="testimonial-author">Elif & Burak — İstanbul</span>
+      </div>
+      <div class="testimonial r">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"24 saat içinde teslim edildi ve misafirlerimiz çok beğendi. Kesinlikle tavsiye ediyorum."</p>
+        <span class="testimonial-author">Selin & Mert — Ankara</span>
+      </div>
+      <div class="testimonial r">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Geri sayımlı animasyonlu davetiyemiz çok ilgi çekti. Herkesten mesaj aldık!"</p>
+        <span class="testimonial-author">Ayşe & Emre — İzmir</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- SİPARİŞ -->
-<section class="order" id="siparis">
+<section class="sec order-bg" id="siparis">
   <div class="container">
-    <span class="section-label" style="color:rgba(255,255,255,0.4);">İletişim</span>
-    <h2 class="section-title">Sipariş vermek<br><em style="color:var(--accent);">hazır mısınız?</em></h2>
-    <p>WhatsApp'tan yazın, 24 saat içinde dönüş yapalım. Fiyat bilgisi ve örnek tasarımlar için de ulaşabilirsiniz.</p>
-    <div class="cta-group">
+    <span class="sec-tag r">İletişim</span>
+    <h2 class="sec-title r">Sipariş vermek<br><em style="color:var(--accent)">hazır mısınız?</em></h2>
+    <p class="sec-sub r">WhatsApp'tan yazın, 24 saat içinde dönüş yapalım. Fiyat bilgisi ve örnek tasarımlar için de ulaşabilirsiniz.</p>
+    <div class="divider r"><div class="divider-gem" style="background:rgba(255,255,255,0.2)"></div></div>
+    <div class="order-btns r">
       <a class="btn-wa" href="https://wa.me/905522772400?text=Merhaba%2C%20dijital%20davetiye%20sipari%C5%9Fi%20vermek%20istiyorum." target="_blank">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.856L.057 23.215a.75.75 0 0 0 .92.92l5.43-1.476A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.686-.516-5.21-1.415l-.375-.225-3.865 1.05 1.063-3.784-.245-.39A9.952 9.952 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-        WhatsApp
+        WhatsApp'tan Yaz
       </a>
       <a class="btn-ig" href="https://instagram.com/paviadavetiye" target="_blank">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         Instagram
       </a>
+    </div>
+    <p class="order-note r">Ortalama yanıt süresi: 30 dakika · 7/24 WhatsApp desteği</p>
+
+    <div class="faq r">
+      <div class="faq-item">
+        <p class="faq-q">Ne kadar sürede teslim ediyorsunuz?</p>
+        <p class="faq-a">Siparişinizi aldıktan sonra 24 saat içinde davetiyeniz hazır olur. Acil siparişler için aynı gün teslimat imkanı da sunuyoruz.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Revize hakkım var mı?</p>
+        <p class="faq-a">Sınırsız revize hakkınız var. Memnun kalana kadar düzenleme yapıyoruz.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Davetiyeyi nasıl paylaşacağım?</p>
+        <p class="faq-a">Size özel bir link oluşturuyoruz. Bu linki WhatsApp, Instagram veya SMS ile kolayca paylaşabilirsiniz.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -579,8 +434,16 @@
 <footer>
   <a class="footer-logo" href="#">Pavia Davetiye</a>
   <span>© 2026 Pavia Davetiye. Tüm hakları saklıdır.</span>
-  <a href="https://instagram.com/paviadavetiye" target="_blank" style="color:var(--muted); text-decoration:none;">@paviadavetiye</a>
+  <a href="https://instagram.com/paviadavetiye" target="_blank" style="color:var(--muted);text-decoration:none">@paviadavetiye</a>
 </footer>
 
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('v'), i * 80);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
